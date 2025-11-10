@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "../components/LeftPanel.css";
 
+const ip_addr = "localhost";
+
 const LeftPanel = ({ topics: initialTopics, updateFlashcards, updateResearch, updateDeepResearch, setLoadingState }) => {
   const [topics, setTopics] = useState(initialTopics);
   const [selectedTopics, setSelectedTopics] = useState({});
@@ -52,7 +54,7 @@ const LeftPanel = ({ topics: initialTopics, updateFlashcards, updateResearch, up
     };
     console.log("Data sent to backend:", JSON.stringify(data, null, 2));
 
-    fetch("http://localhost:5000/send_selected", {
+    fetch("http://" + ip_addr + ":5000/send_selected", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -152,7 +154,6 @@ const LeftPanel = ({ topics: initialTopics, updateFlashcards, updateResearch, up
           </div>
         ))}
       </div>
-
       <div className="button-group">
         <button className="flashcards-btn" onClick={() => handleButtonClick("flashcards")}>
           Generate Flashcards
@@ -163,6 +164,9 @@ const LeftPanel = ({ topics: initialTopics, updateFlashcards, updateResearch, up
         <button className="deep-research-btn" onClick={() => handleButtonClick("deep")}>
           Deep Research
         </button>
+      </div>
+      <div className="disclaimer">
+        <p>AI results may sometimes be unpredictable or inaccurate.</p>
       </div>
     </section>
   );
